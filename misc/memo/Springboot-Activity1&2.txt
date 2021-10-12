@@ -1,0 +1,349 @@
+【事前情報】
+コンセプト
+	Angularとそもそも何？
+補足情報：XXX
+	Angularは、Javascriptのフレームワーク
+	以下のコンセプトを実装するため、構築されている
+		ASIS：
+		・クライアントがリクエストを送る度、①リスポンスでHTMLを返却、②読み込み処理を行う
+			→HTML全体の読み込みが行われるため、処理が遅い
+		TOBE：
+		・初回として、クライアントがリクエストを送る際に、①リスポンスでHTMLが返却され、全体の読み込み処理
+		・部分的な更新の場合、①部分的なJSON、HTML情報のリスポンスが送信される
+			→この部分的な更新を行うためのコンセプトを「Ajaxによる非同期のリクエスト」となる」
+			※AjaxはAsynchronous JavaScript & XMLの略
+			※ブラウザがサーバとやり取りせず（画面更新を担わず）、Javascriptがやり取りする（部分更新、全体更新などを判断する）
+		フレームワーク化の背景
+		・Javascriptが担当する＝JavaScript側にロジックを実装する
+		・ロジックが複雑化したたため、簡易化するためにフレームワークになった
+	Angularはフルスタックの言語である（フロント＆バック）
+		機能を網羅的に持っている
+		・テンプレートエンジン、
+		・データバインディング、
+		・DIコンテナ、
+		・HTTP通信＆非同期処理、
+		・ルーティング、等
+		
+		エコシステム（周辺ツール）で開発が補助されている
+		・Angular CLI：　プロジェクト生成を簡単に行える
+		・ng-Bootstrap：デザイン系のライブラリ
+		・Angular Augury：ブラウザのデバックツール
+		
+		トレンド技術が利用可能（例：TypeScript, Nodejs, webpackなど）
+		
+コンセプト
+	Angularのフレームワーク
+補足情報：XXX
+	モジュール
+		・アプリの一番大きい単位を、モジュールと呼ぶ
+		・アプリは複数のモジュールで構成されている
+		・アプリの起動時に呼び出されるモジュールを、ルートモジュールと呼ぶ
+		※モジュールを機能ごとで分けることによって、管理が容易になる
+		※Angular Moduleは、Angularが提供しているライブラリー群
+	モジュールの基本構成
+		・コンポーネント：画面の構成要素
+		・サービス
+		・ディレクティブ
+		・パイプ
+	コンポーネント
+		・画面の構成要素
+		・ルートコンポーネント（index.html/app.component)という空の枠がある
+		・その上に、実際の仕様があるコンポーネントを組み込む形となっている
+			※例）ヘッダー、フッター、サイドバー、Body１、等
+		・コンポーネントは、LogicとDataの情報を含んでいる
+			・別途、テンプレートと呼ばれるHTML（＋α）と紐づけし、ページ（UI）を構成する
+				※データとテンプレート間の紐づけは、データバインディングを利用
+				※テンプレートは、HTMLの基本実装の上に、データバインディングが行える仕様になっている
+			・Logicでは、テンプレートとの連携関連のロジックに集約する
+				※その他のロジックは、サービスに切り出すことで、冗長な記載を避ける
+			・テンプレートは、MVCモデルにおけるVIEWに該当する
+	サービス
+		・テンプレート（VIEW）に紐づかないロジックを実装する
+			・ロジックを共通化できる利点がある
+			・コンポーネントがサービスを参照する形になるので、DIを行う
+    ディレクティブ
+    	・テンプレート（VIEW）を加工するクラス①
+    	・DOM要素にロジックを付与する
+    		※DOMとは
+    		DOM＝Document Oriented Model
+    		HTMLはツリー構造になっており、それぞれのブロックをノードと呼ぶ
+    		一つのノードを基準に、親・兄弟・子関係のノードを指定できるモデルである
+    		※前にプロジェクトでやった＜parent =＞みたいなやつ
+    		https://eng-entrance.com/what-is-dom
+    パイプ
+    	・テンプレート（VIEW）を加工するクラス②
+    	・テンプレートの表示値を入力し、VIEWに表示する関数
+    		→テンプレートの値を変換するクラスといいかえれる
+
+コンセプト
+	NodeJSとは
+補足情報：XXX
+	Javascriptの実行環境
+		基本的にブラウザで動作するのだが、NodeJSだとサーバで動作する
+	用途の違いは以下の通り
+		Javascript：ブラウザの動作を担う
+		NodeJS：サーバ構築、ツールの作成に利用される
+	npm(node package manager)
+		Javascriptでは、一つ一つのJavascriptファイルをモジュールと呼び、それらをまとめたディレクトリをパッケージと呼ぶ
+		※npmjs.com
+			多様なパッケージの例が記載されている
+			@angular/cli
+			これを検索した場合、インストール方法などを教えてくれる
+
+コンセプト
+	Nodejsのプロジェクトの始め方
+利用方法
+	VSCodeエディタを開く
+	該当フォルダまで遷移する
+	NodeJS関連のインストール状況を確認する
+		node -v
+		npm -v
+	Nodejsのプロジェクトを作成する
+		npm init -y
+	package.jsonがあることを確認する
+		・対象フォルダにpackage.jsonが生成されている
+		・プロジェクトのパッケージを管理しており、プロジェクト単位で生成される
+		・項目は以下の通り
+			name：必須項目→アプリ名
+			version：必須項目→バージョン
+				管理（リリース）方法を踏襲する場合：[メジャー].[マイナー].[パッチ]
+				・メジャー：新機能などの大幅アップデート。破壊的な変更有。
+				・マイナー：小機能の更新。広報互換性あり。
+				・パッチ：バグ修正など
+			description：パッケージの説明を記載する。パッケージの検索にも利用
+			keywords:パッケージの説明を記載する。パッケージの検索にも利用
+			author:作成者
+			license:ライセンス契約
+			main：package.jsonで管理しているプロジェクトを始める際に呼び出すプログラム
+			scripts: 簡単なバッチ処理を記載。プロジェクトのタスクを自動化する際はここに記載
+	パッケージのインストールについて
+		新規にインストールをする場合：「lodash」の例
+			・（対象フォルダに遷移するのは前提条件）
+			・以下のコマンドを実行する
+				npm install --save lodash
+				npm i --save lodash
+			・フォルダ「node_modules」にインストールされていることを確認する
+			※補足情報
+				・「--save」オプションを付与することで、package.jsonにdependenciesの欄が追加・更新される
+				・package-lock.json：イメージとしては、dependenciesをより詳細に記載しているファイル
+		設定済みパッケージを再インストールする際
+			・node_moduleを再度設定する際に行う
+			・npm install
+				※package.jsonのdependenciesを確認して、自動的にインストールを行う
+		node_moduleとgit
+			基本的に、node_moduleは大きいため、gitにはpushしない
+				※.gitignoreで制御する
+		.gitignoreファイルを追加する
+			node_moduleは基本的に大きい
+	nodeを利用したサンプルファイルを作成・実行してみる
+		（管理のため）新規フォルダ「node」を作成する
+		新規JS「sample.js」を作成する	
+		以下の処理を記載する
+			const _ = require('lodash');
+			console.log(_.isString('hello'));
+			console.log(_.isString(1));
+			補足説明
+				・変数にrequire('[パッケージ名]')をあてがうことで利用ができる
+				・変数.メソッドという流れになっているのが見える
+		コマンドで実行する
+			node [相対パス/ファイル名]
+			node node/sample.js
+		package.jsonから実行する
+			scripts内に一文を追加する
+				"start": "node node/sample.js"
+			以下のコマンドを十戸数る
+				npm start
+			※この「start」の名称でなくても、自由に設定が可能
+			※エスケープ分が利用できる
+				"hello": "echo \"hello guys\""
+
+コンセプト
+	typescriptについて
+利用方法
+	詳細は以下を確認する
+		https://www.typescriptlang.org/
+	基本作業：
+		（管理のため）typescriptフォルダを作成する
+		新規ファイル「type.ts」を作成する
+		変数を定義する　※指定以外の型が代入された場合、エラーを表示できる
+			const str: string = "Hello";
+			const num: number = 1;
+			const isB: boolean = true;
+			const arr: number[] = [1, 2, 3];
+			const tup: [number, string] = [1, "hello"];
+			const any: any[] = [1, "hi", false];
+		列挙型を定義する
+			enum Color {Red=0, Green=1, Blue };
+			※数字への意味づけなどが出来ている
+			※以下のサンプルのように、型指定のような形で利用が可能
+				const red: Color = Color.Red;
+		オブジェクト型の定義　※型指定も可能
+			const obj: object = {key: "value"};
+			const obj2: {[key: number]: String } = {1: "1"};
+		文字リテラル/テンプレート文字列型　※変数の埋め込みが可能
+			let lit = 'str is ${str}';
+		型推論　※最初に代入した値から型を設定する
+			let assmpt = "hello";
+			let newAssmpt = <any> assmpt; //キャストもできる
+		関数の書き方
+			let add;
+			add = (x: number, y: number): number =>{ // 引数と戻り値の順で用意されている。ラムダ関数が関数であることを示す。
+			    return x + y;
+			};
+		クラスの作成
+			class Animal {
+			    // アクセス修飾子を付与できる。何もないとPublic。
+			    // Privateは、そのクラスのみでの利用可能。Protectedは、サブクラスまで利用可能。
+			    private _name : String;
+			    constructor(name: String){this._name = name};
+			    move(distanceInMeter: number = 0){
+			        console.log("Animal moved ${distanceInMeter} meter.");
+			    }
+			    get name(): String {return this._name};
+			    set name(name: String){this._name = name};
+			}
+
+			class Dog extends Animal{
+			    bark(){
+			        console.log('Woof! Woof!');
+			        console.log('My name is ' + this.name)
+			    }
+			}
+
+			const dog = new Dog("Taro");
+			dog.bark;
+			dog.move(10);
+			// console.log(dog._name); 変数を呼び出している
+			console.log(dog.name); // ゲッターを呼び出している
+
+			interface Life{
+			    myAge : number;
+			    age(); // 空メソッド
+			}
+	基本作業：TypeScriptのコンパイル方法
+		CMDでプロジェクトまで遷移する
+		以下のコマンドで、Typescriptをインストールする
+			npm -g i typescript
+			// -gでグローバル（システム）をスコープとして、-iでインストールする
+			npm i --save-dev typescript
+			// 開発内容としてnode_modulesに格納することも可能
+		以下のスクリプトをpackage.jsonに追加する
+			"tsc": "tsc -t ES6"
+			※ES6バージョンで、typescriptをJavaにコンパイルする
+			// ES6のバージョンでは、JSでもクラス利用ができるようになった（型はまだ）
+			// ES5の場合、クラス対応が出来ていないなど、複雑なコーディングになる
+		ターミナルで、以下のコマンドを実行する
+			npm run tsc typescript/type.ts
+		JSを利用する形になる
+	
+	基本作業：RxJS
+	・RxJSとは
+		リアクティブ（非同期）プログラミングのライブラリ
+		非同期の処理をデータの流れ（ストリーム）と捉える
+		データは、時系列に沿って、ストリームを通して受け取り先に届く
+		・ストリームを作成、合成、フィルタするための関数も提供されている
+	・RxJSの基本的な用語
+		observable：	ストリーム＝発生源から時系列で流れているデータ
+		operator：		ストリームを操作する関数
+			https://rxjs.dev/api
+			・上記のAPIリストから、「Function」に絞り込むことでサンプルを確認できる
+		subscribe：		受取先＝ストリームに流れているデータを受け取りに行く処理
+	・RxJSの使い方
+		RxJSをインストールする
+			npm install --save rxjs
+		以下の記述を行う
+			// rxjsの使いたい関数をインポートする
+			const rOf = require('rxjs').of;
+			const rFilter = require('rxjs/operators').filter;
+			const rMap = require('rxjs/operators').map;
+
+			// イメージ： サーバー側の処理→データを生成している
+			const squareOdd = rOf(1, 2, 3, 4, 5) // ofでOBSERVABLEを生成
+			    .pipe(
+			        rFilter(n => n % 2 != 0), // フィルタリング（条件式による判定処理）で、奇数のみを残す
+			        rMap(n => n*n) // 2乗して、新しいOBSERVABLEを生成する（値に修正を加え、新規オブジェクトとして代替すること）
+			    ); // OBSERVABLEの宣言終了　＝ここまでで一つのCONST
+
+			// イメージ： クライアント側の処理→データを受け取っている
+			squareOdd.subscribe(x => console.log(x));
+		以下のコマンドを実行する
+			node rxjs/rx.js
+	・パイプ処理は、クライアント側でも実行可能
+		squareOdd.pipe(
+		        rFilter(n => n % 2 != 0), 
+		        rMap(n => n*n) 
+		    ).subscribe(x => console.log(x));
+	
+	基本作業：webpack
+	・webpackとは
+		モジュールバンドラー
+		・JavaScriptを一つにまとめることができる
+			→読み込み対象が減ることで、ロード時間が削減される
+			→Javascript同士の読み込み順序や依存関係を解消する
+		・angular-cli(プロジェクト生成のライブラリ)の一部
+		・公式のウェブ
+			https://webpack.js.org/
+			詳しい使い方は、Documentを参照
+	・Webpackの使い方
+		インストールする
+			npm install --save-dev webpack webpack-cli
+		以下のクラスを生成する
+			index.js
+				const sub = require("./sub")
+	 			sub.hello();
+			sub.js
+				exports.hello = () => {
+				    console.log("hello!");
+				}
+		実行する ※単純にファイルが実行できることを確認
+			node webpack/index.js
+		webpackを利用する
+			設定ファイルの作成
+				webpack.config.js
+				階層は、package.jsonと同じ
+			以下の内容を記載する
+				module.exports = {
+				    entry: "./webpack/index.js",
+				    output: {
+				        path: __dirname,
+				        filename: './webpack/bundle.js'
+				    }
+				};
+		シェルをpackage.jsonに設定する
+			"webpack": "webpack"
+		以下のコマンドを実行する
+			npm run webpack
+			・コンフィグに則って実行してくれる
+	基本作業：
+補足情報：XXX
+	TypeScriptとは
+		Javascriptの拡張版の言語
+			・型の指定が可能
+			・クラスベースのオブジェクト指向
+				→継承などを出来る
+			・コンパイルが必要
+				→コンパイルは、Javascriptに戻すため
+		
+
+
+
+
+コンセプト
+	XXX
+利用方法
+	XXX
+補足情報：XXX
+	XXX
+
+
+
+
+【BK】
+コンセプト
+	XXX
+利用方法
+	XXX
+補足情報：XXX
+	XXX
+
+
