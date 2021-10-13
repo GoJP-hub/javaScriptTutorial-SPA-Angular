@@ -1,0 +1,105 @@
+【開発の準備】
+コンセプト
+	XXX
+利用方法
+	利用するツール
+		シェル：
+			ターミナル。コマンドを叩ける場所が求められる。GITやNodeJSのインストールなどに利用
+		テキストエディタ：
+			Visual Studio。何でもいいが実質的にIDEとなるため、既定のものをお勧めする
+		NodeJS
+			Javascriptを実行する環境
+			https://nodejs.org/ja/
+			上記のURLから、推奨版をインストールする
+			ターミナルで「node -v」を押下することで、インストール成否を確認する
+			ターミナルで「npm -v」を押下することで、マネージャのインストール成否を確認する　
+		AngularCli
+			https://angular.io/cli
+			上記で記載されているNPMコマンドを参照する　※勉強時では、「npm install -g @angular/cli」だった
+			ターミナルで「ng version」でインストール成否を確認する
+補足情報：XXX
+	XXX
+
+コンセプト
+	XXX
+利用方法
+	Angularプロジェクトを作成する
+		対象のフォルダに遷移する
+		以下のコマンドを実行する
+			ng new [アプリ名] --style-scss
+			ng new spa-training-front --style=scss  
+			※基本的に質問にあるangularのルーティングは必須だが、チュートリアルの観点によるNoにしておく
+		アプリフォルダに遷移する
+		以下のコマンドを実行する
+			※ローカルでアプリをテストするためのコマンド
+			ng serve
+			※コンパイルをするため、動いていることをログにあるURLにアクセスすることで確認する
+	コンポーネントを作成する
+		対象フォルダに遷移する
+		以下のコマンドを実行する
+			ng generate component [component名]
+			※ng g c [component名]　も同じ
+			今回は
+				ng g c components/article-list
+			以下のフォルダが生成されていることを確認
+				[対象プロジェクト]/src/app/[指定したフォルダ=Components//[指定したフォルダ=article-list]
+				・ファイルとしては、「html」「scss」「spec.ts」「ts」が格納されている
+		src/app配下の「app.module.ts」に、componentを登録する
+			※AngularCLIで登録すると自動的にこのファイルも更新される
+			※基本的には、「インポート」の宣言と「declarations」での紐づけが必要
+		コンポーネントのファイルの説明
+			HTML：テンプレート
+			CSS：デザイン
+			TS：コンポーネント→データやロジックの記載を行う
+			spec.ts：コンポーネントのテストファイル
+			※命名規則
+				ファイルの場合、小文字＆「-」区切り
+				クラスの場合、キャメルケースの大文字区切り
+			※デコレータ（アノテーション）
+				コンポーネントは「@Component」を宣言する必要がある
+				デフォルトで宣言される属性は
+				・selector：	名称（コンポーネントを参照する際に利用するキー）
+				・templateUrl：	テンプレートへの相対パスを記述
+				・styleUrls：	デザインへの相対パスを記述
+			※ルートファイルについて
+				app.module.tsで、bootstrap属性がある：ここでルートが指定されている
+				HTMLの記載部分で、以下の対応をすることで、動作を確認できる
+					・デフォルトは、ただのPlaceHolder
+					・TSで記載があった「SELECTOR」をタブとして記載する
+					<app-article-list></app-article-list>
+				ng serverで起動してみる
+	ワーク
+		同様の流れで、「header」と「footer」コンポーネントを作成してみる
+			ng g c components/header
+			ng g c components/footer
+		app.component.htmlに記載する
+			※ショートカット
+				app-[名称]で、ctrl+space→enterでも行ける
+				app-[名称] + app-[名称]でも、同様に行ける
+補足情報：XXX
+	XXX
+
+コンセプト
+	XXX
+利用方法
+	XXX
+補足情報：XXX
+	XXX
+
+コンセプト
+	XXX
+利用方法
+	XXX
+補足情報：XXX
+	XXX
+
+
+【BK】
+コンセプト
+	XXX
+利用方法
+	XXX
+補足情報：XXX
+	XXX
+
+
