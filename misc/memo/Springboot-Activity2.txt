@@ -1,0 +1,155 @@
+【】
+コンセプト
+	Bootstrapでデザインを作成する
+利用方法：セットアップ方法
+	公式ウェブサイトにアクセスする
+		https://getbootstrap.jp/
+	ダウンロード欄にアクセスし、CND（Contents Network Delivery）のタブを、Index.html（大本）に張り付ける
+		張り付ける場所は、「Head」タブの中
+		張り付けるタブの例は以下の通り
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	
+利用方法：利用例
+	事前に、src/asset配下に、「image」フォルダとサンプル画像を入れておく
+	①ワーク：ヘッダー
+	改修対象コンポーネントのHTMLに遷移する
+	以下のコマンドを記載する
+		・Navバーのタブを作成する
+			nav.navbar.navbar-dark.bg-dark
+			→これでショートカットを押すと、タブに自動変換される
+		・タブの中で、イメージ画像を宣言する
+			div.navbar-brand>img.logo[src="/asset/images/logo.pgn"]{掲示板}
+			altの属性は利用しないため、削除する
+			</img>も、タブじゃないため削除する
+	以下のコマンドを関連CSSに記載する
+		・imgで宣言したクラスをscssで定義する
+			.logo{ width: 75px; height: 48px;}
+	
+	②ワーク：フッター
+	以下のコマンドを記載する
+		<footer class="text-light bg-dark">
+		    <div class="container-fluid">
+		        <div class="item">Copyrigth @2021 Go All rights reserved.</div>
+		    </div>
+		</footer>
+	以下のコマンドを関連CSSに記載する
+		footer {
+		    padding: 1em;
+		    .container-fluid {
+		        display: flex;
+		        justify-content: flex-end;
+		    }
+		}
+
+	③ワーク：サイドバー
+	ng g c components/sidebar
+	HTMLに遷移
+	以下のコマンドを記載
+		・div.bg-light>nav.navbar.navbar-light.sidebar>ul.navbar-nav>li.nav-item*5
+		リストの中に以下を入れる
+			文字列：新着記事
+			文字列：記事の投稿
+			タブ：
+				<img src="/assets/images/beginner.pgn" class="banner">
+                <p class="banner-text">
+                    2021/09/01から開催中。<br/>
+                    只今、オンライン受講受付中！
+                </p>
+                <div>
+                    <img class="graph" src="/assets/images/morning.gif">
+                    <img class="graph" src="/assets/images/afternoon.gif">
+                    <img class="graph" src="/assets/images/afternoon2.gif">
+                    <img class="graph" src="/assets/images/evening.gif">
+                    
+                </div>
+			タブ：
+				<img src="/assets/images/present.gif" class="banner">
+                <p class="banner-text">毎週ポイントを追加するよー</p>
+			タブ
+				<img src="/assets/images/mokumoku.jpg" class="banner">
+	以下のコマンドをCSSに記載
+		div { h100%+w210 }
+		.sidebar {
+		    padding: 5%;
+		    position: sticky;
+		    top: 0;
+		}
+		.banner { w180mt10p }
+		.banner-text{
+		    font-size: small;
+		}
+		.graph {
+		    padding: 5px;
+		}
+	app.component.htmlに遷移
+	GRITの使い方
+		ヘッダーコンポーネントの下に以下を記載
+			div.container-fluid>div.row
+			div.col.md-3.col.xs-12
+			div.col.md-9.col.xs-12
+			→このCOLの中に、サイドバーとメインのコンポーネントを付与する
+	
+		→割合的に、３部分までサイドバー、残りの９をメインで表示するはずだが、
+		サイドバーは固定値なので、枠だけの保持という形になる
+		
+		クラスに以下を追加したら、順序を設定する ※MD以上ならXX,それ以外ならXXという設定
+		 order-md-1 order-2
+		 order-md-2 order-1
+	アイコンを使ってみる
+		bootstrapでIconを検索する
+		→ライブラリの実装が無いため、おすすめを利用する　※FontAwesomeを理宇王する
+			https://getbootstrap.jp/docs/4.2/extend/icons/
+			※例ではCDNだが、なかったからNPMのインストールに変える
+			https://github.com/FortAwesome/angular-fontawesome
+			※importして、@NgModuleのImport欄でも記載する
+			※ただ、CDNの方が楽そうなので、こっちの実装を行う
+				https://developers.google.com/fonts/docs/material_icons
+				https://fonts.google.com/icons?selected=Material+Icons
+			→CDNを行う
+			→対象のアイコンを探し、タブをコピる
+			→対象のliの中、文字列の横に記載する
+			<li class="nav-item"><span class="material-icons">alarm</span>新着記事</li>
+	ngbootstrapの例
+		npm install --save @ng-bootstrap/ng-bootstrap
+		app.module.tsにインポートする
+			※import文で「import { NgbModule } from '@ng-bootstrap/ng-bootstrap';」
+			※@NgModuleのImport欄で、NgbModuleを宣言
+		利用対象のコンポーネントで呼びだす
+			article-list.html遷移
+			ngb-carousel.carousel-position>ng-template
+			※ng-templateに、ngbSlideを付与する（要素の見た目を変えるクラスをディレクティブ）
+				<ng-template ngbSlide></ng-template>
+				中身を付与する
+				img.img-responsive[src="/assets/images/carousel$.jpg"]*3
+				※ng-templateを複製し、その中に上記のものを一つずつ配置する
+			cssに以下を記載する
+				.image-responsive { w100p }
+				.carousel-position { maw600+w100p+m3p-a-0-a
+		カルーセルの表示には失敗
+		→とりあえずスキップしよう。
+補足情報：XXX
+	XXX
+
+コンセプト
+	XXX
+利用方法
+	XXX
+補足情報：XXX
+	XXX
+	
+コンセプト
+	XXX
+利用方法
+	XXX
+補足情報：XXX
+	XXX
+
+【BK】
+コンセプト
+	XXX
+利用方法
+	XXX
+補足情報：XXX
+	XXX
+
+
